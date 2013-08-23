@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.pentaho.reporting.engine.classic.core.util.PageFormatFactory;
 import org.saiku.reporting.backend.exceptions.SaikuClientException;
 import org.saiku.reporting.backend.objects.dto.HtmlReport;
 import org.saiku.reporting.backend.service.CdaService;
@@ -125,7 +126,19 @@ public class ReportGeneratorResource {
     	List<TemplateDefinition> templateList = reportGeneratorService.getTemplatesFromRepository(templatesFolder);
     	return templateList;
     }
-	
+    
+    /**
+     * Returns the Formats from Factory.
+     */
+    @GET
+    @Produces({"application/json"})
+    @Path("/formats")
+    public String[] getFormatList() {
+    	final PageFormatFactory pageFormatFactory = PageFormatFactory.getInstance();
+    	String[] pFormats = pageFormatFactory.getPageFormats();
+    	return pFormats;
+    }
+    
     @GET
     @Produces({"image/png"})
     @Path("/image/{name}")
