@@ -226,9 +226,11 @@ public class ReportGeneratorService {
 			throws SaikuReportingException {
 
 		// this should be stored in the ReportSpecification.
-		String fileId = "templates/cobalt_4_left_aligned_grid.prpt";
-
-		reportingComponent.setReportFileId(fileId);
+		// String fileId = "templates/cobalt_4_left_aligned_grid.prpt";
+		
+		TemplateDefinition template = spec.getTemplate();
+		String templateUrl = template != null ? template.getUrl()+ "/" + template.getName() : "system/saiku-reporting/resources/templates/cobalt_4_left_aligned_grid.prpt";  
+		reportingComponent.setReportFileId(templateUrl);
 
 		try {
 			return reportingComponent.getReport();
